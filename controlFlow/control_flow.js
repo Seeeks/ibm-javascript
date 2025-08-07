@@ -1,5 +1,7 @@
-let userRole="admin";
+let userRole="member";//types: employee, member, subscriber, non-subscriber
 let accessLevel;
+let dietServices = false;
+let dieticianAllowed = false;
 let isLoggedIn = true;
 let userMessage;
 let userType ="subscriber";
@@ -7,17 +9,25 @@ let userCategory;
 let isAuthenticated = true;
 let authenticationStatus = isAuthenticated ? "Authenticated" : "Not authenticated";
 
-if (userRole === "admin") {
-    accessLevel = "Full access granted";
+if (userRole === "employee") {
+    dietServices = true;
+    dieticianAllowed = false;
 }
-else if (userRole === "manager") {
-    accessLevel = "Limited access granted";
+else if (userRole === "member") {
+    dietServices = true;
+    dieticianAllowed = true;
+}
+else if (userRole === "subscriber") {
+    dietServices = true;
+    dieticianAllowed = false;
 }
 else {
-    accessLevel = "No access granted";
+    dietServices = false;
+    dieticianAllowed = false;
 }
 
-console.log("Access Level:", accessLevel);
+
+//console.log("Access Level:", accessLevel);
 
 if (isLoggedIn) {
     if (userRole === "admin") {
@@ -33,18 +43,26 @@ if (isLoggedIn) {
 console.log("User Message:", userMessage);
 
 switch (userType) {
-    case "admin":
-        userCategory = "Administrator";
+    case "employee":
+        userCategory = "Employee";
         break;
-    case "manager":
-        userCategory = "Manager";
+    case "member":
+        userCategory = "Enrolled Member";
         break;
     case "subscriber":
         userCategory = "Subscriber";
         break;
     default:
-        userCategory = "Unknown";
+        userCategory = "Non-Subscriber";
 }
 
 console.log("User Category:", userCategory);
 console.log("Authentication Status:", authenticationStatus)
+
+let serviceStatus = dietServices ? "can" : "cannot";
+let dieticianStatus = dieticianAllowed ? "are authorized" : "are not authorized";
+
+const msgElement = document.getElementById("msg");
+if (msgElement) {
+    msgElement.textContent = "Welcome, " + userCategory + ". You " + serviceStatus + " access Dietary Services. You " + dieticianStatus + " to have one-on-one interactions with a dietician.";
+}
