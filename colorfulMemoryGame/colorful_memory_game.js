@@ -31,7 +31,7 @@ function shuffle(array) {
 
 function handleCardClick(event) {
     const card = event.target;
-    if (!card.classList.contains('card') || card.classList.contains('matched')) {
+    if (!card.classList.contains('card') || card.classList.contains('matched') || selectedCards.length === 2) {
         return;
     }
 
